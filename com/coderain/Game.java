@@ -24,8 +24,9 @@ public class Game {
     }
     public int rollDie(int dieNum) {
         Die die = dice.get(dieNum);
-        if (die.getTimesRolled() <= 5) {
+        if (die.getTimesRolled() < 5) {
             die.roll();
+            die.rolled();
             return die.getValue();
         }
         return 0;

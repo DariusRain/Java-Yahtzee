@@ -8,7 +8,7 @@ public class Die {
     // Value die is currently rolled from 1 to "int sides"
     private int on;
 
-    private static int timesRolled = 0;
+    private int timesRolled = 0;
 
     public void Die(int customSides) {
         if (customSides > 6) {
@@ -37,7 +37,6 @@ public class Die {
         SecureRandom rand = new SecureRandom();
         // on = random value in a range of 1 - sides or 1 - 6 if no custom int was assigned to the sides ariable
         on = rand.nextInt((sides - 1) + 1) + 1;
-        rolled();
     }
 
     //      v1.2 I can roll the die X times then the application finishes
