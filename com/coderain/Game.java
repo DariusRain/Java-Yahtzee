@@ -23,11 +23,13 @@ public class Game {
         }
     }
     public int rollDie(int dieNum) {
-        Die die = dice.get(dieNum);
-        if (die.getTimesRolled() < 5) {
-            die.roll();
-            die.rolled();
-            return die.getValue();
+        if (dieNum < 5) {
+            Die die = dice.get(dieNum);
+            if (die.getTimesRolled() < 5) {
+                die.roll();
+                die.rolled();
+                return die.getValue();
+            }
         }
         return 0;
     }
