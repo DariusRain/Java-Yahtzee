@@ -3,15 +3,8 @@ package com.coderain;
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
-        // ** -> v1.0 I have a die
-        Die die1 = new Die();
-        Die die2 = new Die();
-        Die die3 = new Die();
-        Die die4 = new Die();
-        Die die5 = new Die();
-
-        int rollCount = 1;
+        Game game = new Game();
+        game.startGame();
 
     }
 }
