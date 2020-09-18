@@ -25,7 +25,7 @@ public class Game {
     public int rollDie(int dieNum) {
         if (dieNum < 5) {
             Die die = dice.get(dieNum);
-            if (die.getTimesRolled() < 5) {
+            if (die.getTimesRolled() < 3) {
                 die.roll();
                 die.rolled();
                 return die.getValue();
@@ -52,7 +52,7 @@ public class Game {
     public boolean isGameOver() {
         boolean res = true;
         for(Die die: dice) {
-            if (die.getTimesRolled() != 5) {
+            if (die.getTimesRolled() != 3) {
                 res = false;
             }
         }
