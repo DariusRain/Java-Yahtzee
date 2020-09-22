@@ -1,61 +1,83 @@
 package com.coderain;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.*;
+
+import static java.lang.System.exit;
+import static java.lang.System.in;
+
 public class Game {
+    // ArrayList of Die objects
     private ArrayList<Die> dice;
     {
         dice = new ArrayList<Die>();
     }
-//    addToDi
-//    public int getDiceValue(String dieNumber) {
-//
-//    }
+
+    // Round counter
+    private int round = 0;
+
+    // This function initializes the game and rolls all 5 of the dice.
     public void initList() {
-        for(int i = 1; i <= 5; i++){
+        System.out.println("Yahtzee=======================================>");
+        System.out.println("Press any key to start game and roll the dice:");
+        Scanner scan = new Scanner(System.in);
+        scan.nextLine();
+        for(int i = 0; i < 5; i++){
             dice.add(new Die());
+            dice.get(i).roll();
         }
+        setRound(1);
+
     }
+
+    // Display dice list after each round including the last one.
     public void displayList() {
         int diceCount = 1;
         for(Die die: dice) {
-            System.out.println("Rolled Die" + diceCount + " " + die.getTimesRolled() + " times...");
+            System.out.println("Die " + diceCount + ": " + die.getValue());
             diceCount += 1;
         }
     }
-    public int rollDie(int dieNum) {
-        if (dieNum < 5) {
-            Die die = dice.get(dieNum);
-            if (die.getTimesRolled() < 3) {
-                die.roll();
-                die.rolled();
-                return die.getValue();
-            }
+
+    // Roll die by number
+    public void rollDie(int dieNum) {
+        if (dieNum <= 5) {
+            Die die = dice.get(dieNum - 1);
+            die.roll();
         }
-        return 0;
     }
 
+    // Displays the round to re-roll if user chooses.
     public void displayGameRound() {
         displayList();
         Scanner scan = new Scanner(System.in);
-        System.out.println("What Die would you like to roll:");
-        int valOfRoll = rollDie(scan.nextInt() - 1);
-        System.out.println("Rolled: " + valOfRoll);
-
+        System.out.println("( Round " + round + " ) " + "Pick up and re-roll? (Press 'x' if no re-rolls):");
+        String input = scan.nextLine();
+        if(-1 < input.indexOf("x")) {
+            displayList();
+            exit(0);
+        }
+        String dieNums[] = input.split(" ");
+        for(int i = 0; i < dieNums.length; i++) {
+            rollDie(Integer.parseInt(dieNums[i]));
+        }
     }
 
     public void startGame() {
         initList();
-        while (isGameOver() != true) {
+        while (true) {
             displayGameRound();
+            if(round == 3) {
+                displayList();
+                System.out.println("Game over...");
+                exit(0);
+            }
+            setRound(round + 1);
         }
     }
-    public boolean isGameOver() {
-        boolean res = true;
-        for(Die die: dice) {
-            if (die.getTimesRolled() != 3) {
-                res = false;
-            }
-        }
-        return res;
+
+
+    public void setRound(int round) {
+        this.round = round;
     }
 }
