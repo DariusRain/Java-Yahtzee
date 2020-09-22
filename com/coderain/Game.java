@@ -1,10 +1,7 @@
 package com.coderain;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.*;
-
 import static java.lang.System.exit;
-import static java.lang.System.in;
 
 public class Game {
     // ArrayList of Die objects
