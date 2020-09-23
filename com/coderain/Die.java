@@ -7,7 +7,7 @@ public class Die {
     private int sides = 6;
     // Value die is currently rolled from 1 to "int sides"
     private int on;
-
+    private SecureRandom rand = new SecureRandom();
     public void Die(int customSides) {
         if (customSides > 6) {
             sides = customSides;
@@ -21,9 +21,8 @@ public class Die {
 
     //      v1.1 that die can be rolled to have a random value
     public void roll() {
-        SecureRandom rand = new SecureRandom();
         // on = random value in a range of 1 - sides or 1 - 6 if no custom int was assigned to the sides ariable
-        on = rand.nextInt((sides - 1) + 1) + 1;
+        on = rand.nextInt(sides) + 1;
     }
 
 

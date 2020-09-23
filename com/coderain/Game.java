@@ -9,7 +9,7 @@ public class Game {
     {
         dice = new ArrayList<Die>();
     }
-
+    private Scanner scan = new Scanner(System.in);
     // Round counter
     private int round = 0;
 
@@ -17,13 +17,12 @@ public class Game {
     public void initList() {
         System.out.println("Yahtzee=======================================>");
         System.out.println("Press any key to start game and roll the dice:");
-        Scanner scan = new Scanner(System.in);
         scan.nextLine();
         for(int i = 0; i < 5; i++){
             dice.add(new Die());
             dice.get(i).roll();
         }
-        setRound(1);
+        round += 1;
 
     }
 
@@ -47,34 +46,31 @@ public class Game {
     // Displays the round to re-roll if user chooses.
     public void displayGameRound() {
         displayList();
-        Scanner scan = new Scanner(System.in);
         System.out.println("( Round " + round + " ) " + "Pick up and re-roll? (Press 'x' if no re-rolls):");
         String input = scan.nextLine();
         if(-1 < input.indexOf("x")) {
-            displayList();
             exit(0);
         }
         String dieNums[] = input.split(" ");
         for(int i = 0; i < dieNums.length; i++) {
-            rollDie(Integer.parseInt(dieNums[i]));
+            if (Integer.parseInt(dieNums[i]) <= dice.size()) {
+                rollDie(Integer.parseInt(dieNums[i]));
+            } else {
+                System.out.println("Invalid die: " + dieNums[i]);
+                System.out.println("Make sure to include spaces between multiple dice ( E.x: 1 2 3 4 5 ).");
+            }
+
         }
     }
 
     public void startGame() {
         initList();
-        while (true) {
+        while (round < 3) {
             displayGameRound();
-            if(round == 3) {
-                displayList();
-                System.out.println("Game over...");
-                exit(0);
-            }
-            setRound(round + 1);
+            round += 1;
         }
-    }
-
-
-    public void setRound(int round) {
-        this.round = round;
+        displayList();
+        System.out.println("Game over...");
+        exit(0);
     }
 }
