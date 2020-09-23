@@ -23,7 +23,7 @@ public class Game {
             dice.add(new Die());
             dice.get(i).roll();
         }
-        setRound(1);
+        round += 1;
 
     }
 
@@ -51,7 +51,6 @@ public class Game {
         System.out.println("( Round " + round + " ) " + "Pick up and re-roll? (Press 'x' if no re-rolls):");
         String input = scan.nextLine();
         if(-1 < input.indexOf("x")) {
-            displayList();
             exit(0);
         }
         String dieNums[] = input.split(" ");
@@ -62,15 +61,13 @@ public class Game {
 
     public void startGame() {
         initList();
-        while (true) {
+        while (round < 3) {
             displayGameRound();
-            if(round == 3) {
-                displayList();
-                System.out.println("Game over...");
-                exit(0);
-            }
-            setRound(round + 1);
+            round += 1;
         }
+        displayList();
+        System.out.println("Game over...");
+        exit(0);
     }
 
 
