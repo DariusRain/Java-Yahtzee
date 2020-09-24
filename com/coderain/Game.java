@@ -5,11 +5,13 @@ import static java.lang.System.exit;
 
 public class Game {
     // ArrayList of Die objects
-    private ArrayList<Die> dice;
+    private final ArrayList<Die> dice;
     {
-        dice = new ArrayList<Die>();
+        dice = new ArrayList<>();
     }
-    private Scanner scan = new Scanner(System.in);
+    // One scan field needed for input
+    private final Scanner scan = new Scanner(System.in);
+
     // Round counter
     private int round = 0;
 
@@ -48,21 +50,25 @@ public class Game {
         displayList();
         System.out.println("( Round " + round + " ) " + "Pick up and re-roll? (Press 'x' if no re-rolls):");
         String input = scan.nextLine();
-        if(-1 < input.indexOf("x")) {
+        if(input.contains("x")) {
             exit(0);
         }
-        String dieNums[] = input.split(" ");
-        for(int i = 0; i < dieNums.length; i++) {
-            if (Integer.parseInt(dieNums[i]) <= dice.size()) {
-                rollDie(Integer.parseInt(dieNums[i]));
+        String[] dieNumbers = input.split(" ");
+        for(String dieNumber: dieNumbers) {
+            if (Integer.parseInt(dieNumber) <= dice.size()) {
+                rollDie(Integer.parseInt(dieNumber));
             } else {
-                System.out.println("Invalid die: " + dieNums[i]);
+                System.out.println("Invalid die: " + dieNumber);
                 System.out.println("Make sure to include spaces between multiple dice ( E.x: 1 2 3 4 5 ).");
             }
 
         }
+        if(isYahtzee()) {
+            System.out.println("YAHTZEE!");
+        }
     }
 
+    // Runs the displayRound function 3 times and ends the game after the loop
     public void startGame() {
         initList();
         while (round < 3) {
@@ -72,5 +78,16 @@ public class Game {
         displayList();
         System.out.println("Game over...");
         exit(0);
+    }
+
+    // Checks if all of the Die.getValue() numbers are equal and returns false as soon as a number is not equal.
+    public boolean isYahtzee() {
+        int value = dice.get(0).getValue();
+        for(Die die: dice) {
+            if (value != die.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
