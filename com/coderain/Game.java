@@ -46,7 +46,7 @@ public class Game {
     }
 
     // Displays the round to re-roll if user chooses.
-    public void displayGameRound() {
+    public void gameRound() {
         displayList();
         System.out.println("( Round " + round + " ) " + "Pick up and re-roll? (Press 'x' if no re-rolls):");
         String input = scan.nextLine();
@@ -72,7 +72,7 @@ public class Game {
     public void startGame() {
         initList();
         while (round < 3) {
-            displayGameRound();
+            gameRound();
             round += 1;
         }
         displayList();
