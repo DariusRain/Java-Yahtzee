@@ -65,6 +65,7 @@ public class Game {
         }
         if(isYahtzee()) {
             System.out.println("YAHTZEE!");
+            exit(0);
         }
     }
 
